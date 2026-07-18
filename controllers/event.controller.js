@@ -38,7 +38,7 @@ const updateEvent = async (req, res) => {
     try {
         const { id } = req.params;
         const { title, description, location, event_date, capacity } = req.body;
-        const data = db.query(
+        const data = await db.query(
           "UPDATE events SET title=$1, description=$2, location=$3, event_date=$4, capacity=$5 WHERE id=$6 RETURNING *",
           [title, description, location, event_date, capacity]
         );
@@ -50,7 +50,7 @@ const updateEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
     try {
         const { id } = req.params;
-        const data = db.query(
+        const data = await db.query(
           "DELETE FROM events WHERE id = $1",[id]
         );
         res
